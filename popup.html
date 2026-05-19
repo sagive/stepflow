@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StepFlow Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0813;
+      --bg-card: rgba(22, 18, 38, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(138, 35, 135, 0.4);
+      --text-main: #f3f0f7;
+      --text-muted: #a59fb1;
+      --accent-purple: #8A2387;
+      --accent-pink: #E94057;
+      --accent-orange: #F27121;
+      --status-success: #10b981;
+      --status-error: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 0%, #1e1335 0%, var(--bg-dark) 80%);
+      color: var(--text-main);
+      width: 340px;
+      padding: 16px;
+      overflow-x: hidden;
+      min-height: 380px;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      border-radius: 8px;
+      font-size: 14px;
+      box-shadow: 0 4px 10px rgba(233, 64, 87, 0.25);
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      background: linear-gradient(to right, #ffffff, #d3cde6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn-settings {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .btn-settings:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Target Site Match Info */
+    .match-container {
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.08), rgba(255,255,255,0.01));
+    }
+
+    .card-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .scenario-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .scenario-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .btn-action {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+      border: none;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(233, 64, 87, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(233, 64, 87, 0.35);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* All tutorials list */
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 12px 0 8px 0;
+    }
+
+    .tutorial-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 160px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    /* Custom Scrollbar */
+    .tutorial-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    .tutorial-list::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.01);
+    }
+    .tutorial-list::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+    }
+    .tutorial-list::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    .tutorial-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+
+    .tutorial-item-info {
+      flex: 1;
+      overflow: hidden;
+      margin-right: 8px;
+    }
+
+    .tutorial-item-name {
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+
+    .tutorial-item-pattern {
+      font-family: monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+
+    .btn-play-small {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .btn-play-small:hover {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      border-color: transparent;
+    }
+
+    /* Footer status */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-color);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .sync-status {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      display: inline-block;
+    }
+
+    .status-dot.success { background: var(--status-success); }
+    .status-dot.error { background: var(--status-error); }
+    .status-dot.syncing {
+      background: var(--accent-pink);
+      animation: pulse-dot 1s infinite alternate;
+    }
+
+    .btn-sync {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 11px;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+
+    .btn-sync:hover {
+      color: #ffffff;
+    }
+
+    @keyframes pulse-dot {
+      from { opacity: 0.5; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="logo">✨</div>
+      <h1>StepFlow</h1>
+    </div>
+    <button class="btn-settings" id="btn-settings" title="Settings">⚙️</button>
+  </header>
+
+  <!-- Scenario Active Match -->
+  <div class="match-container">
+    <div class="card" id="match-card">
+      <div class="card-label" id="card-label">Current Page</div>
+      <div id="match-content">
+        <!-- Rendered dynamically depending on URL match -->
+        <div class="scenario-title" id="match-title">Checking current tab...</div>
+        <div class="scenario-desc" id="match-desc">Scanning page patterns...</div>
+        <button class="btn-action btn-primary" id="btn-launch-tutorial" disabled>
+          ✨ Launch Walkthrough
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">All Tutorials</div>
+  <div class="tutorial-list" id="tutorial-list">
+    <!-- Rendered dynamically -->
+    <p style="color: var(--text-muted); font-size: 11px; font-style: italic;">No tutorials cached.</p>
+  </div>
+
+  <footer>
+    <div class="sync-status">
+      <span class="status-dot" id="status-dot"></span>
+      <span id="sync-label">Last synced: -</span>
+    </div>
+    <button class="btn-sync" id="btn-sync">
+      <span id="sync-icon">🔄</span> Sync
+    </button>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

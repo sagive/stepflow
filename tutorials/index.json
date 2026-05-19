@@ -1,0 +1,10 @@
+{
+  "tutorials": [
+    {
+      "id": "sandbox-tutorial",
+      "name": "SaaS Dashboard Tour",
+      "urlPattern": "sandbox.html",
+      "file": "tutorials/sandbox-tutorial.json"
+    }
+  ]
+}

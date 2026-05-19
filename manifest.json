@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "StepFlow - Tutorial Helper",
+  "version": "1.0.0",
+  "description": "Dynamic web tutorials powered by Driver.js, loaded directly from your Git repository.",
+  "permissions": [
+    "storage",
+    "alarms",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://raw.githubusercontent.com/*",
+    "https://api.github.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "css": [
+        "lib/driver.css"
+      ],
+      "js": [
+        "lib/driver.js",
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "StepFlow Dashboard"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}

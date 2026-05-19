@@ -1,0 +1,67 @@
+{
+  "steps": [
+    {
+      "element": "#nav-dashboard",
+      "popover": {
+        "title": "Navigation Menu",
+        "description": "Welcome to NexusSaaS! This is your main sidebar menu. Easily navigate between the Dashboard, Analytics, and Settings pages.",
+        "side": "right",
+        "align": "start"
+      }
+    },
+    {
+      "element": "#card-users",
+      "popover": {
+        "title": "Active Users",
+        "description": "Monitor your active user counts here, updated in real time. The indicator highlights growth compared to last week.",
+        "side": "bottom",
+        "align": "center"
+      }
+    },
+    {
+      "element": "#card-revenue",
+      "popover": {
+        "title": "Monthly Revenue",
+        "description": "Track your monthly revenue and visual growth trends. Critical metrics like this are pinned to your homepage.",
+        "side": "bottom",
+        "align": "center"
+      }
+    },
+    {
+      "element": "#card-creation-box",
+      "popover": {
+        "title": "Launch Campaigns",
+        "description": "Ready to expand? Use this card to quickly trigger targeted customer engagement campaigns.",
+        "side": "top",
+        "align": "start"
+      }
+    },
+    {
+      "element": "#btn-create-project",
+      "popover": {
+        "title": "Call to Action",
+        "description": "Click this button to launch the campaign creator wizard directly. Give it a try!",
+        "side": "left",
+        "align": "center"
+      }
+    },
+    {
+      "element": "#card-chart",
+      "popover": {
+        "title": "Revenue Trajectory",
+        "description": "This chart illustrates your monthly revenue trajectories over the past six months. Hover over each bar to see specific values.",
+        "side": "top",
+        "align": "center"
+      }
+    },
+    {
+      "element": "#profile-avatar",
+      "popover": {
+        "title": "Your Profile",
+        "description": "Manage your active session, billing details, settings, and developer API tokens from this dropdown. You are ready to go!",
+        "side": "bottom",
+        "align": "end"
+      }
+    }
+  ]
+}

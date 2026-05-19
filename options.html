@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StepFlow Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #09070f;
+      --bg-card: rgba(20, 16, 35, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(138, 35, 135, 0.4);
+      --text-main: #f3f0f7;
+      --text-muted: #a59fb1;
+      --accent-purple: #8A2387;
+      --accent-pink: #E94057;
+      --accent-orange: #F27121;
+      --status-success: #10b981;
+      --status-error: #ef4444;
+      --status-pending: #3b82f6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 0%, #1e1335 0%, var(--bg-dark) 70%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .logo-glow {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      border-radius: 14px;
+      font-size: 24px;
+      box-shadow: 0 8px 24px rgba(233, 64, 87, 0.3);
+    }
+
+    .logo-glow::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: inherit;
+      border-radius: inherit;
+      filter: blur(10px);
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(to right, #ffffff, #d3cde6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    }
+
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 15px;
+      transition: all 0.3s;
+      outline: none;
+    }
+
+    input[type="text"]:focus, select:focus {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border-hover);
+      box-shadow: 0 0 15px rgba(138, 35, 135, 0.15);
+    }
+
+    .input-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* Actions and Buttons */
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      outline: none;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      border: none;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(233, 64, 87, 0.2);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(233, 64, 87, 0.35);
+    }
+
+    .btn-primary:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Sync Monitor Section */
+    .monitor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .monitor-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .monitor-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .monitor-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-success {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--status-success);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .status-error {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--status-error);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .status-syncing {
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--status-pending);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    .error-log {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #fca5a5;
+      line-height: 1.5;
+      word-break: break-all;
+    }
+
+    .tutorial-list {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tutorial-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+
+    .tutorial-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .tutorial-pattern {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.05);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .tutorial-steps-count {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(30, 24, 48, 0.95);
+      border: 1px solid rgba(138, 35, 135, 0.4);
+      border-radius: 30px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      z-index: 10000;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      from { opacity: 0.6; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="logo-glow">🔄</div>
+      <h1>StepFlow Settings</h1>
+    </header>
+
+    <div class="card">
+      <h2>GitHub Synchronization</h2>
+      <form id="settings-form">
+        <div class="form-group">
+          <label for="github-repo">GitHub Repository</label>
+          <input type="text" id="github-repo" placeholder="username/repository" required>
+          <p class="input-hint">The public Git repository containing your scenario files (e.g. <code>sagive/stepflow</code>).</p>
+        </div>
+
+        <div class="form-group">
+          <label for="github-branch">Branch</label>
+          <input type="text" id="github-branch" placeholder="main" required>
+          <p class="input-hint">The branch to sync scenarios from.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="sync-interval">Sync Frequency</label>
+          <select id="sync-interval">
+            <option value="5">Every 5 minutes (Testing)</option>
+            <option value="15">Every 15 minutes</option>
+            <option value="60" selected>Every hour</option>
+            <option value="1440">Every day</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn-secondary" id="btn-sync-now">
+            <span id="sync-icon">🔄</span> Sync Scenarios
+          </button>
+          <button type="submit" class="btn-primary">Save Settings</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Sync Monitor</h2>
+      <div class="monitor-grid">
+        <div class="monitor-item">
+          <div class="monitor-label">Sync Status</div>
+          <div class="monitor-value" id="status-container">
+            <span class="status-badge" id="status-badge">Unknown</span>
+          </div>
+        </div>
+        <div class="monitor-item">
+          <div class="monitor-label">Last Sync</div>
+          <div class="monitor-value" id="last-sync-time">-</div>
+        </div>
+        <div class="monitor-item">
+          <div class="monitor-label">Active Scenarios</div>
+          <div class="monitor-value" id="cached-scenarios-count">0</div>
+        </div>
+        <div class="monitor-item">
+          <div class="monitor-label">Git Source</div>
+          <div class="monitor-value" id="source-badge" style="font-size: 13px; font-family: monospace; word-break: break-all;">-</div>
+        </div>
+      </div>
+
+      <div id="error-container" style="display: none; margin-bottom: 20px;">
+        <label>Error Details</label>
+        <div class="error-log" id="error-text">No errors.</div>
+      </div>
+
+      <h2>Loaded Scenarios</h2>
+      <div class="tutorial-list" id="scenarios-list">
+        <!-- Rendered dynamically -->
+        <p style="color: var(--text-muted); font-size: 14px; font-style: italic;">No scenarios loaded. Trigger a sync to load scenarios.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">Settings saved successfully!</div>
+
+  <script src="options.js"></script>
+</body>
+</html>
