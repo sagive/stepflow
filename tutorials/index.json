@@ -1,10 +1,10 @@
 {
   "tutorials": [
     {
-      "id": "sandbox-tutorial",
-      "name": "SaaS Dashboard Tour",
-      "urlPattern": "sandbox.html",
-      "file": "tutorials/sandbox-tutorial.json"
+      "id": "x-developer-tour",
+      "name": "X Developer Console Tour",
+      "urlPattern": "/console\\.x\\.com\\/accounts\\/\\d+$/i",
+      "file": "tutorials/x-console-tutorial.json"
     }
   ]
 }

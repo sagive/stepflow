@@ -157,6 +157,39 @@ function createFloatingLauncher(scenario) {
   document.body.appendChild(launcher);
 }
 
+// Helper to evaluate and convert XPath selectors to CSS selectors by injecting temp attributes
+function resolveSelector(selector, index) {
+  if (typeof selector !== "string") return selector;
+
+  // Heuristic to detect XPath (starts with / or //) while avoiding regex patterns
+  const isXPath = selector.startsWith("/") || selector.startsWith("//") || selector.startsWith("(/");
+  const isRegex = selector.startsWith("/") && selector.lastIndexOf("/") > 0 && /^[gimsuy]*$/.test(selector.substring(selector.lastIndexOf("/") + 1));
+
+  if (isXPath && !isRegex) {
+    try {
+      const result = document.evaluate(
+        selector,
+        document,
+        null,
+        XPathResult.FIRST_ORDERED_NODE_TYPE,
+        null
+      );
+      const element = result.singleNodeValue;
+      if (element) {
+        const attrValue = `xpath-step-${index}`;
+        element.setAttribute("data-stepflow-target", attrValue);
+        return `[data-stepflow-target="${attrValue}"]`;
+      } else {
+        console.warn(`StepFlow: XPath element not found in DOM: ${selector}`);
+      }
+    } catch (err) {
+      console.error(`StepFlow: Error evaluating XPath: ${selector}`, err);
+    }
+  }
+
+  return selector; // Default to CSS selector
+}
+
 // Start the walkthrough using bundled Driver.js
 function startWalkthrough(scenario) {
   if (typeof window.driver === "undefined" || typeof window.driver.js === "undefined") {
@@ -172,9 +205,9 @@ function startWalkthrough(scenario) {
   console.log(`Initializing walkthrough "${scenario.name}" with ${scenario.steps.length} steps...`);
 
   // Construct steps, mapping selectors and custom content
-  const steps = scenario.steps.map(step => {
+  const steps = scenario.steps.map((step, index) => {
     return {
-      element: step.element,
+      element: resolveSelector(step.element, index),
       popover: {
         title: step.popover.title || "Step",
         description: step.popover.description || "",

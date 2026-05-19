@@ -1,0 +1,31 @@
+{
+  "steps": [
+    {
+      "element": "/html/body/div[2]/div/div[2]/div[1]/ul/li[1]/a",
+      "popover": {
+        "title": "Developer Dashboard",
+        "description": "This is your main dashboard page. View overall API stats and account standing here.",
+        "side": "right",
+        "align": "start"
+      }
+    },
+    {
+      "element": "/html/body/div[2]/div/div[2]/div[1]/ul/li[3]/a[text()='Apps']",
+      "popover": {
+        "title": "Manage Apps",
+        "description": "Click on Apps to create keys, configure tokens, and set up your active API integrations.",
+        "side": "right",
+        "align": "start"
+      }
+    },
+    {
+      "element": "/html/body/div[2]/div/div[2]/div[1]/ul/li[4]/a",
+      "popover": {
+        "title": "API Usage Limits",
+        "description": "Check this tab to monitor rate limits, tier status, and monthly endpoint counts.",
+        "side": "right",
+        "align": "start"
+      }
+    }
+  ]
+}
