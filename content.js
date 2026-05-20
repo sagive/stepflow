@@ -161,6 +161,45 @@ function createFloatingLauncher(scenario) {
 function resolveSelector(selector, index) {
   if (typeof selector !== "string") return selector;
 
+  // Check if it's a stringified function
+  const trimmed = selector.trim();
+  if (trimmed.startsWith("() =>") || trimmed.startsWith("function")) {
+    // 1. Try safe extraction of XPath if it is just a wrapped document.evaluate
+    const xpathMatch = trimmed.match(/document\.evaluate\(\s*['"`]([^'"`]+)['"`]/);
+    if (xpathMatch && xpathMatch[1]) {
+      const xpathQuery = xpathMatch[1];
+      try {
+        const result = document.evaluate(
+          xpathQuery,
+          document,
+          null,
+          XPathResult.FIRST_ORDERED_NODE_TYPE,
+          null
+        );
+        const element = result.singleNodeValue;
+        if (element) {
+          const attrValue = `xpath-step-${index}`;
+          element.setAttribute("data-stepflow-target", attrValue);
+          return `[data-stepflow-target="${attrValue}"]`;
+        } else {
+          console.warn(`StepFlow: XPath element not found in DOM via function extraction: ${xpathQuery}`);
+        }
+      } catch (err) {
+        console.error(`StepFlow: Error evaluating extracted XPath: ${xpathQuery}`, err);
+      }
+    }
+
+    // 2. Otherwise, fall back to eval if possible
+    try {
+      const fn = (0, eval)(selector);
+      if (typeof fn === "function") {
+        return fn;
+      }
+    } catch (err) {
+      console.warn(`StepFlow: CSP or error blocked direct eval of function selector: ${selector}`, err);
+    }
+  }
+
   // Heuristic to detect XPath (starts with / or //) while avoiding regex patterns
   const isXPath = selector.startsWith("/") || selector.startsWith("//") || selector.startsWith("(/");
   const isRegex = selector.startsWith("/") && selector.lastIndexOf("/") > 0 && /^[gimsuy]*$/.test(selector.substring(selector.lastIndexOf("/") + 1));

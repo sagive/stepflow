@@ -1,7 +1,7 @@
 {
     "steps": [
         {
-            "element": "() => document.evaluate(\"//a[contains(text(), 'Apps') and @role='link']\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue",
+            "element": "//a[contains(text(), 'Apps') and @role='link']",
             "popover": {
                 "title": "Apps Dashboard",
                 "description": "Apps Dashboard is a centralized location where you can manage all your applications, view their status, and access their details.",
@@ -10,7 +10,7 @@
             }
         },
         {
-            "element": "() => document.evaluate(\"//button[contains(text(), 'Create App')]\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue",
+            "element": "//button[contains(text(), 'Create App')]",
             "popover": {
                 "title": "Create New App",
                 "description": "Click on Create New App to create keys, configure tokens, and set up your active API integrations.",
