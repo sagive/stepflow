@@ -3,7 +3,7 @@
     {
       "id": "x-developer-tour",
       "name": "X Developer Console Tour",
-      "urlPattern": "/console\\.x\\.ai/i",
+      "urlPattern": "/console\\.x\\.com/i",
       "file": "tutorials/x-console-tutorial.json"
     }
   ]
