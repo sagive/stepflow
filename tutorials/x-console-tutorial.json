@@ -1,7 +1,7 @@
 {
     "steps": [
         {
-            "element": "a[href*='/apps']",
+            "element": "() => document.evaluate(\"//a[contains(text(), 'Apps') and @role='link']\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue",
             "popover": {
                 "title": "Apps Dashboard",
                 "description": "Apps Dashboard is a centralized location where you can manage all your applications, view their status, and access their details.",
