@@ -1,7 +1,7 @@
 {
     "steps": [
         {
-            "element": "//a[contains(text(), 'Apps') and @role='link']",
+            "element": "//a[contains(., 'Apps')]",
             "popover": {
                 "title": "Apps Dashboard",
                 "description": "Apps Dashboard is a centralized location where you can manage all your applications, view their status, and access their details.",
@@ -10,7 +10,7 @@
             }
         },
         {
-            "element": "//button[contains(text(), 'Create App')]",
+            "element": "//button[contains(., 'Create App')]",
             "popover": {
                 "title": "Create New App",
                 "description": "Click on Create New App to create keys, configure tokens, and set up your active API integrations.",

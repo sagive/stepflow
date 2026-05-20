@@ -198,6 +198,9 @@ function resolveSelector(selector, index) {
     } catch (err) {
       console.warn(`StepFlow: CSP or error blocked direct eval of function selector: ${selector}`, err);
     }
+
+    // Return a dummy CSS selector instead of letting the raw function string leak
+    return `#stepflow-non-existent-function-${index}`;
   }
 
   // Heuristic to detect XPath (starts with / or //) while avoiding regex patterns
@@ -220,9 +223,11 @@ function resolveSelector(selector, index) {
         return `[data-stepflow-target="${attrValue}"]`;
       } else {
         console.warn(`StepFlow: XPath element not found in DOM: ${selector}`);
+        return `#stepflow-non-existent-xpath-${index}`; // Prevent SyntaxError in Driver.js
       }
     } catch (err) {
       console.error(`StepFlow: Error evaluating XPath: ${selector}`, err);
+      return `#stepflow-invalid-xpath-${index}`; // Prevent SyntaxError in Driver.js
     }
   }
 
